@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ATD.Models.Service>
+
+@{
+    ViewBag.Title = "Services Offered";
+}
+
+<h4 class="text-center well">@ViewBag.Title</h4>
+
+@if (User.IsInRole("Administrator"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <table class="table table-bordered table-striped table-condensed table-responsive">
+        <thead>
+            <tr>
+                <th>
+                    <span class="pull-left">
+                        @Html.ActionLink("Services", "Index", new { sortOrder = ViewBag.NameSort })
+                    </span>
+                    <span class="pull-right">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.TextBox("SearchString", null, new { @class = "search-input" })
+                            <input type="submit" value="Search" class="search-input" />
+                        }
+                    </span>
+</tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Services", "Index", new { sortOrder = ViewBag.NameSort })
+
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ServiceID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ServiceID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ServiceID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@if (!User.IsInRole("Administrator"))
+{
+    <table class="table table-bordered table-striped table-condensed table-responsive">
+        <thead>
+            <tr>
+                <th>
+                    <span class="pull-left">
+                        @Html.ActionLink("Services", "Index", new { sortOrder = ViewBag.NameSort })
+                    </span>
+                    <span class="pull-right">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.TextBox("SearchString", null, new { @class = "search-input" })
+                            <input type="submit" value="Search" class="search-input" />
+                        }
+                    </span>
+</tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Services", "Index", new { sortOrder = ViewBag.NameSort })
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
